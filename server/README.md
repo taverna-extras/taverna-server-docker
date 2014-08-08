@@ -1,4 +1,4 @@
-# taverna-server-docker
+# Taverna Server Docker
 
 Docker image set up for a generic Taverna Server.
 
@@ -44,12 +44,19 @@ The following addresses are now accessible from your Web browser:
 Clone this repository to your local machine and run:
 
 ```shell
+$ sudo docker build -t <yourname>/<imagename>:<tag> server/
+```
+
+or
+
+```shell
+$ cd server
 $ sudo docker build -t <yourname>/<imagename>:<tag> .
 ```
 
-Note the `.` on the end of the line. `yourname`, `imagename` and `tag` can be
-whatever you like but should be sensible of you will be uploading the resulting
-image to the [Docker Hub](http://hub.docker.com)
+`yourname`, `imagename` and `tag` can be whatever you like but should be
+sensible if you will be uploading the resulting image to the
+[Docker Hub](http://hub.docker.com)
 
 You can now run the resulting image as above:
 
