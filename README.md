@@ -2,6 +2,9 @@
 
 Docker image set up for a generic Taverna Server.
 
+The pre-built image is available on the [Docker Hub](http://hub.docker.com) as
+[taverna/server](https://registry.hub.docker.com/u/taverna/server/).
+
 ## Usage
 
 It is assumed that you have installed [Docker](http://docker.io) on your
