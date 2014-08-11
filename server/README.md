@@ -34,15 +34,16 @@ the following sections.
 You can pull the pre-built image in the usual way:
 
 ```shell
-$ sudo docker pull taverna/server:254
+$ sudo docker pull taverna/server:<tag>
 ```
 
 When running the container you will need to map the port number that tomcat
 listens on to a port on your machine. In most cases you will also want to run
 the container as a daemon.
 
-The following example runs the container as a daemon, gives it a name (`t254`)
-and maps the tomcat port (8080) to port 3000 on the local machine.
+The following example runs the container tagged with `254` as a daemon, gives
+it a name (`t254`) and maps the tomcat port (8080) to port 3000 on the local
+machine.
 
 ```shell
 $ sudo docker run -p 3000:8080 -d --name t254 -t taverna/server:254
@@ -75,8 +76,11 @@ sensible if you will be uploading the resulting image to the
 You can now run the resulting image as above:
 
 ```shell
-$ sudo docker run -p 3000:8080 -d --name t254 -t <yourname>/<imagename>:<tag>
+$ sudo docker run -p 3000:8080 -d -t <yourname>/<imagename>:<tag>
 ```
+
+Add a `--name` option if you would rather not let docker assign a default name
+for your container.
 
 ### Debugging a running container
 
