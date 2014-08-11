@@ -2,8 +2,22 @@
 
 Docker image set up for a generic Taverna Server.
 
+For production use you should use this as a base image and set more secure
+passwords, etc.
+
 The pre-built image is available on the [Docker Hub](http://hub.docker.com) as
 [taverna/server](https://registry.hub.docker.com/u/taverna/server/).
+
+## Image details
+
+* **Base image**: [consol/tomcat-7.0](https://registry.hub.docker.com/u/consol/tomcat-7.0/)
+* **Container**: Tomcat 7
+* **Port**: 8080
+* **Tomcat 'admin' user password**: admin
+* **Taverna user**: taverna
+* **Taverna password**: taverna
+* **Taverna Server root**: /taverna-254
+* **Shared volumes**: `/opt/tomcat/logs`, `/tmp`
 
 ## Usage
 
