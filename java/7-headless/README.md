@@ -3,7 +3,7 @@
 Docker image set up for OpenJDK 7 Headless JRE.
 
 The pre-built image is available on the [Docker Hub](http://hub.docker.com) at
-[taverna/java](https://registry.hub.docker.com/u/taverna/java/).
+[taverna/openjdk-jre-headless](https://registry.hub.docker.com/u/taverna/openjdk-jre-headless/).
 
 ## Image details
 
