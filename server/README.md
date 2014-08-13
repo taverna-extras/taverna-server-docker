@@ -106,3 +106,14 @@ logs directory:
 # cd /opt/tomcat/logs
 # ls
 ```
+
+## Known issues
+
+* Problem routing interaction requests internally
+  ([T3-809](http://dev.mygrid.org.uk/issues/browse/T3-809)). A workaround is
+  to ensure that the tomcat port in the container is always mapped to the same
+  port number on the local machine for now, e.g.
+
+  ```shell
+  $ sudo docker run -p 8080:8080 -d --name t254 taverna/server:2.5.4
+  ```
