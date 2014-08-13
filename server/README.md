@@ -10,13 +10,12 @@ The pre-built image is available on the [Docker Hub](http://hub.docker.com) as
 
 ## Image details
 
-* **Base image**: [consol/tomcat-7.0](https://registry.hub.docker.com/u/consol/tomcat-7.0/)
+* **Base image**: [taverna/tomcat](https://registry.hub.docker.com/u/taverna/tomcat/)
 * **Container**: Tomcat 7
 * **Port**: 8080
-* **Tomcat 'admin' user password**: admin
-* **Taverna user**: taverna
-* **Taverna password**: taverna
-* **Taverna Server root**: /taverna-254
+* **Taverna user**: `taverna`
+* **Taverna password**: `taverna`
+* **Taverna Server root**: `/taverna-<version>` (e.g. `/taverna-2.5.4`)
 * **Shared volumes**: `/opt/tomcat/logs`, `/tmp`
 
 ## Usage
@@ -52,7 +51,7 @@ $ sudo docker run -p 3000:8080 -d --name t254 -t taverna/server:254
 The following addresses are now accessible from your Web browser:
 
 * `http://localhost:3000`: tomcat root.
-* `http://localhost:3000/taverna-254`: Taverna Server root.
+* `http://localhost:3000/taverna-2.5.4`: Taverna Server root.
 
 ### Building the image from scratch
 
