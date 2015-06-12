@@ -1,6 +1,6 @@
 # Taverna Server Docker
 
-Docker image set up for a generic Taverna Server.
+Docker image set up for a generic [Taverna Server](http://taverna.incubator.apache.org/documentation/server/).
 
 For production use you should use this as a base image and set more secure
 passwords, etc.
@@ -11,12 +11,12 @@ The pre-built image is available on the [Docker Hub](http://hub.docker.com) as
 ## Image details
 
 * **Base image**: [taverna/tomcat](https://registry.hub.docker.com/u/taverna/tomcat/)
-* **Container**: Tomcat 7
-* **Port**: 8080
+* **Container**: Tomcat 7/OpenJDK 7 (base image [tomcat](https://registry.hub.docker.com/u/library/tomcat/))
+* **Port**: 8080 (http), 8009 (AJP)
 * **Taverna user**: `taverna`
 * **Taverna password**: `taverna`
-* **Taverna Server root**: `/taverna-<version>` (e.g. `/taverna-2.5.4`)
-* **Shared volumes**: `/opt/tomcat/logs`, `/tmp`
+* **Taverna Server root**: `/`
+* **Shared volumes**: `/tmp`
 
 ## Usage
 
@@ -41,8 +41,8 @@ listens on to a port on your machine. In most cases you will also want to run
 the container as a daemon.
 
 The following example runs the container tagged with `2.5.4` as a daemon,
-gives it a name (`t254`) and maps the tomcat port (8080) to port 8080 on the
-local machine.
+gives it a name (`t254`) and maps the port 8080 on the local machine
+to go to the Tomcat port (8080) within the Docker container.
 
 ```shell
 $ sudo docker run -p 8080:8080 -d --name t254 taverna/server:2.5.4
@@ -50,8 +50,7 @@ $ sudo docker run -p 8080:8080 -d --name t254 taverna/server:2.5.4
 
 The following addresses are now accessible from your Web browser:
 
-* `http://localhost:8080`: tomcat root.
-* `http://localhost:8080/taverna-2.5.4`: Taverna Server root.
+* `http://localhost:8080`: Taverna Server root
 
 ### Building the image from scratch
 
@@ -88,8 +87,13 @@ while it is running. You can simply run another container and connect to these
 volumes to see logs and temporary files in the Taverna Server container. The
 volumes exported are:
 
-* `/opt/tomcat/logs`: tomcat and Taverna Server logs.
 * `/tmp`: Taverna Server temporary data for each workflow execution.
+
+You can see the Tomcat logs from a running docker container named `t254` using:
+
+```shell
+docker logs t254
+```
 
 Assuming you started your Taverna Server container with the name `t254`, then
 to view the shared data run:
@@ -99,11 +103,11 @@ $ sudo docker run -i -t --volumes-from t254 ubuntu:14.04 /bin/bash
 ```
 
 This will start an Ubuntu 14.04 container and give you an interactive bash
-shell so that you can inspect the Taverna Server logs. Simply `cd` into the
+shell so that you can inspect the Taverna Server `/tmp`. Simply `cd` into the
 logs directory:
 
 ```shell
-# cd /opt/tomcat/logs
+# cd /tmp
 # ls
 ```
 
@@ -117,3 +121,11 @@ logs directory:
   ```shell
   $ sudo docker run -p 8080:8080 -d --name t254 taverna/server:2.5.4
   ```
+* The URL you first access the Taverna Server with is remembered by the server
+  for the returned links, so be sure to use the full hostname to avoid
+  exposing `http://localhost:8080/rest` unless you only want to expose
+  the server to localhost.  This can be a problem if you are using
+  `--link` to access the server from a different docker image, as
+  you will need to ensure a consistent hostname. 
+
+
