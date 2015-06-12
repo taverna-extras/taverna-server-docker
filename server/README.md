@@ -17,6 +17,8 @@ The pre-built image is available on the [Docker Hub](http://hub.docker.com) as
 * **Taverna password**: `taverna`
 * **Taverna Server root**: `/`
 * **Shared volumes**: `/tmp`
+* **REST API**: `http://localhost:8080/rest/`  (replace with full hostname)
+* **WSDL API**: `http://localhost:32778/soap?wsdl`  (replace with full hostname)
 
 ## Usage
 
