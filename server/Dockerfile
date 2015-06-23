@@ -1,4 +1,4 @@
-# DOCKER-VERSION 0.3.4
+# DOCKER-VERSION 1.7.0
 
 FROM tomcat:7-jre7
 
@@ -7,9 +7,9 @@ MAINTAINER dev@taverna.incubator.apache.org
 ENV TAVERNA_VERSION 2.5.4
 ENV WAR_MD5 20d27405b27a3418b783777171734514
 
-# Install time and unzip
-#RUN apt-get install -qqy unzip time
-#RUN apt-get clean
+# Install "time"
+RUN apt-get update && apt-get install -qqy time
+RUN apt-get clean
 
 # Download and unpack Taverna Server
 RUN rm -rf webapps/* && cd webapps && \
