@@ -6,11 +6,11 @@ For production use you should use this as a base image and set more secure
 passwords, etc.
 
 The pre-built image is available on the [Docker Hub](http://hub.docker.com) as
-[taverna/server](https://registry.hub.docker.com/u/taverna/server/).
+[taverna/taverna-server](https://registry.hub.docker.com/u/taverna/taverna-server/).
 
 ## Image details
 
-* **Base image**: [taverna/tomcat](https://registry.hub.docker.com/u/taverna/tomcat/)
+* **Base image**: [tomcat](https://registry.hub.docker.com/u/_/tomcat/) 7
 * **Container**: Tomcat 7/OpenJDK 7 (base image [tomcat](https://registry.hub.docker.com/u/library/tomcat/))
 * **Port**: 8080 (http), 8009 (AJP)
 * **Taverna user**: `taverna`
@@ -35,7 +35,7 @@ the following sections.
 You can pull the pre-built image in the usual way:
 
 ```shell
-$ sudo docker pull taverna/server:<tag>
+$ sudo docker pull taverna/taverna-server:<tag>
 ```
 
 When running the container you will need to map the port number that tomcat
@@ -47,12 +47,16 @@ gives it a name (`t254`) and maps the port 8080 on the local machine
 to go to the Tomcat port (8080) within the Docker container.
 
 ```shell
-$ sudo docker run -p 8080:8080 -d --name t254 taverna/server:2.5.4
+$ sudo docker run -p 8080:8080 -d --name t254 taverna/taverna-server:2.5.4
 ```
 
 The following addresses are now accessible from your Web browser:
 
 * `http://localhost:8080`: Taverna Server root
+
+Note that the hostname you first access Taverna Server with will be used in 
+subsequent replies, so remember to access with the full hostname if the
+installation is to be used outside `localhost`.
 
 ### Building the image from scratch
 
