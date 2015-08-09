@@ -1,12 +1,14 @@
 # Taverna Server Docker
 
-Docker image set up for a generic [Taverna Server](http://taverna.incubator.apache.org/documentation/server/).
+Docker image set up for a generic Taverna Server.
+
+See the [documentation](http://taverna.incubator.apache.org/documentation/server/) for details.
 
 For production use you should use this as a base image and set more secure
 passwords, etc.
 
 The pre-built image is available on the [Docker Hub](http://hub.docker.com) as
-[taverna/taverna-server](https://registry.hub.docker.com/u/taverna/taverna-server/).
+[taverna/taverna-server](https://hub.docker.com/r/taverna/taverna-server/).
 
 ## Image details
 
