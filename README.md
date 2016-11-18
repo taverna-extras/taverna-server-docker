@@ -60,6 +60,13 @@ Note that the hostname you first access Taverna Server with will be used in
 subsequent replies, so remember to access with the full hostname if the
 installation is to be used outside `localhost`.
 
+### Default users
+The docker image has 3 default users included, see the file users.properties for more info.  
+taverna: password 'taverna'  
+taverna_alt: password 'qwerty'  
+admin: password ADMIN  
+You should change these via the admin interface available via `/admin`.
+
 ### Building the image from scratch
 
 Clone this repository to your local machine and run:
