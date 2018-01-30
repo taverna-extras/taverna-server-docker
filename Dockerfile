@@ -6,26 +6,16 @@ MAINTAINER dev@taverna.incubator.apache.org
 # https://taverna.incubator.apache.org/download/server/
 
 ENV TAVSERV_VERSION 3.1.0-incubating
-# Find latest checksum in https://www.apache.org/dist/incubator/taverna/source/
-ENV TAVSERV_SHA256 0025c85cc115fc5b8c6c969f2a1ae995ca3269a193f63d2508bc8740c095af1c
-# NOTE: No need for https for .tar.gz download due to above checksum
-ENV TAVSERV_MIRROR http://www.eu.apache.org/dist/
-ENV TAVSERV_ARCHIVE http://archive.apache.org/dist/
-ENV TAVSERV_FOLDER incubator/taverna/source
+ENV TAVSERV_KEYS https://www.apache.org/dist/incubator/taverna/KEYS
 
 WORKDIR /tmp
 
-RUN echo "$TAVSERV_SHA256  taverna-server.zip" > taverna-server.zip.sha256
+RUN wget $TAVSERV_KEYS && gpg --import KEYS
+RUN mvn dependency:copy -DoutputDirectory=/tmp -Dartifact=org.apache.taverna.server:taverna-server-webapp:$TAVSERV_VERSION:war
+RUN mvn dependency:copy -DoutputDirectory=/tmp -Dartifact=org.apache.taverna.server:taverna-server-webapp:$TAVSERV_VERSION:war.asc
+RUN gpg --verify *.asc
+RUN mv *.war /taverna-server.war
 
-# Fall-back to archive if this version is no longer in the mirror
-RUN path=$TAVSERV_FOLDER/taverna-server-$TAVSERV_VERSION/apache-taverna-server-$TAVSERV_VERSION-source-release.zip &&\ 
-    wget -O taverna-server.zip $TAVSERV_MIRROR/$path || wget -O taverna-server.zip $TAVSERV_ARCHIVE/$path
-RUN sha256sum -c taverna-server.zip.sha256
-RUN unzip taverna-server.zip && mv apache-taverna-server-$TAVSERV_VERSION src
-
-WORKDIR /tmp/src
-RUN mvn clean install
-RUN mv taverna-server-webapp/target/taverna-server.war /taverna-server.war
 
 # Second stage, Tomcat container
 FROM tomcat:8-jre8
@@ -44,7 +34,7 @@ COPY --from=0 /taverna-server.war /tmp/taverna-server.war
 # Manual unpack of WAR to customize properties
 RUN rm -rf webapps/* && \
   mkdir webapps/ROOT && cd webapps/ROOT && \  
-  unzip /tmp/taverna-server.war
+  unzip /tmp/taverna-server.war 
 
 # Set up unsecured connections, server defaults and users.
 ADD web.xml tavernaserver.properties webapps/ROOT/WEB-INF/
