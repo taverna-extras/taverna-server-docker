@@ -11,8 +11,8 @@ ENV TAVSERV_KEYS https://www.apache.org/dist/incubator/taverna/KEYS
 WORKDIR /tmp
 
 RUN wget $TAVSERV_KEYS && gpg --import KEYS
-RUN mvn dependency:copy -DoutputDirectory=/tmp -Dartifact=org.apache.taverna.server:taverna-server-webapp:$TAVSERV_VERSION:war
-RUN mvn dependency:copy -DoutputDirectory=/tmp -Dartifact=org.apache.taverna.server:taverna-server-webapp:$TAVSERV_VERSION:war.asc
+RUN mvn -B dependency:copy -DoutputDirectory=/tmp -Dartifact=org.apache.taverna.server:taverna-server-webapp:$TAVSERV_VERSION:war
+RUN mvn -B dependency:copy -DoutputDirectory=/tmp -Dartifact=org.apache.taverna.server:taverna-server-webapp:$TAVSERV_VERSION:war.asc
 RUN gpg --verify *.asc
 RUN mv *.war /taverna-server.war
 
